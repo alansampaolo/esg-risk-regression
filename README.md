@@ -4,7 +4,9 @@ Machine learning project for predicting corporate ESG Risk Scores using financia
 
 ## Project Overview
 
-The goal of this project is to predict the Total ESG Risk Score of companies using financial and company related variables, sector information, and controversy related features.
+The broader objective is to identify which available company characteristics contribute most to predictive performance and to understand the main predictive drivers of ESG Risk Scores.
+
+These predictive relationships are not causal, but they can generate hypotheses and motivate future causal research on the determinants of ESG risk.
 
 The dataset was constructed by merging ESG data with financial data over the same reference period. The merged dataset initially contained 441 observations, with 378 companies retained in the final modelling sample after preprocessing.
 
@@ -79,6 +81,8 @@ Model interpretation was performed using two complementary approaches:
 The interpretation is predictive rather than causal. In other words, the coefficients and SHAP values identify variables that are associated with the model predictions, but they do not establish causal effects on ESG Risk Scores.
 
 This distinction is important because the project was designed for prediction, not for causal inference or policy evaluation.
+
+The identified predictive relationships can nevertheless be used to generate hypotheses about potentially relevant factors that could be investigated in future causal studies.
 
 The main limitations are:
 
