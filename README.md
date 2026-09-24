@@ -1,4 +1,4 @@
-# ESG Risk Prediction
+# ESG Risk Regression
 
 Machine learning project for predicting corporate ESG Risk Scores using financial, sector and controversy related data.
 
