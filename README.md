@@ -104,10 +104,10 @@ The purpose of this step is not to improve the prediction itself, but to transla
 ## Repository Structure
 
 ```text
-esg-risk-prediction/
+esg-risk-regression/
 │
 ├── README.md
-├── esg_risk_prediction.ipynb
+├── esg_risk_regression.ipynb
 ├── esg_financials_merged_simfin_2023.csv
 └── esg_risk_prediction_report.pdf
 ```
