@@ -109,7 +109,7 @@ esg-risk-regression/
 ├── README.md
 ├── esg_risk_regression.ipynb
 ├── esg_financials_merged_simfin_2023.csv
-└── esg_risk_prediction_report.pdf
+└── esg_risk_regression_report.pdf
 ```
 
 ## Technologies
