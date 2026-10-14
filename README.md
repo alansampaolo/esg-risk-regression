@@ -1,133 +1,33 @@
-# ESG Risk Regression
+# ESG Risk Score Regression
 
-Machine learning project for predicting corporate ESG Risk Scores using financial, sector and controversy related data.
+Machine learning project · Python · PyTorch · SHAP · LLM API
 
-## Project Overview
+## Objective
 
-The broader objective is to identify which available company characteristics contribute most to predictive performance and to understand the main predictive drivers of ESG Risk Scores.
+The aim was to **identify the main factors associated with and predictive of ESG risk scores**, and to **understand which variables were most relevant for the model**. Those predictive relationships could also **motivate future causal research**, although the project itself was not designed to estimate causal effects.
 
-These predictive relationships are not causal, but they can generate hypotheses and motivate future causal research on the determinants of ESG risk.
+## What was compared
 
-The dataset was constructed by merging ESG data with financial data over the same reference period. The merged dataset initially contained 441 observations, with 378 companies retained in the final modelling sample after preprocessing.
+| | |
+|---|---|
+| **Data** | 378 S&P 500 companies: financial data (SimFin) merged with ESG risk scores and controversy data |
+| **Target** | Total ESG Risk Score (higher = greater exposure to ESG-related risks) |
+| **Models** | Linear, Ridge, Lasso, polynomial, GAM, decision tree, bagging, random forest, gradient boosting, SVR (RBF), MLP, PyTorch neural network |
+| **Validation** | 5-fold cross-validation on the training set, preprocessing inside pipelines, test set used once for final evaluation |
 
-## Data Sources
+ESG sub-scores too close to the target were removed to avoid data leakage.
 
-The dataset used in this project was constructed by merging information from two external sources:
+## Key results
 
-- **SimFin** for company-level financial data
-- **Kaggle** for ESG-related data on S&P 500 companies
+- The **PyTorch neural network** performs best on the test set (**R² 0.47**, RMSE 4.92), with SVR (0.44) and GAM (0.43) as the closest alternatives; polynomial regression severely overfits.
+- **Most relevant variables:** sector (energy firms show higher ESG risk, real estate and technology lower), **controversy score** and **company size** (total assets, employees), consistently across standardised coefficients and SHAP values.
+- The moderate R² suggests that quantitative variables capture relevant information but do not fully explain ESG risk.
+- **LLM application:** the model's prediction is passed to an LLM via API to generate a readable ESG risk report for each company (e.g. Comcast: predicted 23.05 vs. actual 23.10).
 
-The two datasets were aligned to the same reference period and merged using companies available in both sources.
+## Repository
 
-Because the financial dataset did not contain all S&P 500 companies, the resulting merged sample was smaller than the full index universe.
+- `esg_risk_regression.ipynb` — full Python workflow
+- `esg_risk_regression_report.pdf` — project presentation
+- `esg_financials_merged_simfin_2023.csv` — dataset
 
-The merged dataset initially contained 441 observations, while the final modelling sample contained 378 companies after preprocessing.
-
-## Methodology
-
-The analysis follows a supervised machine learning workflow:
-
-1. Data cleaning and preprocessing
-2. Removal of potentially redundant or leakage-prone variables
-3. Train/test split with 5-fold cross-validation performed on the training set
-4. Model comparison across linear, nonlinear and machine learning approaches
-5. Final evaluation on the held-out test set
-6. Model interpretation using standardized coefficients and SHAP values
-
-## Models
-
-The following models were compared:
-
-- Linear Regression
-- Ridge Regression
-- Lasso Regression
-- Generalized Additive Model (GAM)
-- Polynomial Regression
-- Decision Tree
-- Random Forest
-- Bagging
-- Gradient Boosting
-- Support Vector Regression (RBF kernel)
-- MLPRegressor
-- PyTorch Neural Network
-
-## Results
-
-The PyTorch Neural Network achieved the best predictive performance on the held-out test set.
-
-| Model | RMSE | MAE | R² |
-|---|---:|---:|---:|
-| PyTorch Neural Network | 4.915 | 3.968 | 0.470 |
-| SVR (RBF) | 5.056 | 4.071 | 0.440 |
-| GAM | 5.122 | 4.266 | 0.425 |
-| MLPRegressor | 5.161 | 4.231 | 0.416 |
-| Linear Regression | 5.258 | 4.404 | 0.394 |
-| Gradient Boosting | 5.263 | 4.184 | 0.393 |
-| Ridge Regression | 5.277 | 4.412 | 0.390 |
-| Lasso Regression | 5.287 | 4.422 | 0.387 |
-| Bagging | 5.411 | 4.229 | 0.358 |
-| Random Forest | 5.481 | 4.287 | 0.341 |
-| Decision Tree | 5.631 | 4.407 | 0.305 |
-
-The best test R² is moderate, indicating that the available quantitative variables capture relevant information about ESG Risk Scores but do not fully explain them.
-
-## Interpretation and Limitations
-
-Model interpretation was performed using two complementary approaches:
-
-- standardized coefficients for the linear regression model;
-- SHAP values for the PyTorch Neural Network.
-
-The interpretation is predictive rather than causal. In other words, the coefficients and SHAP values identify variables that are associated with the model predictions, but they do not establish causal effects on ESG Risk Scores.
-
-This distinction is important because the project was designed for prediction, not for causal inference or policy evaluation.
-
-The identified predictive relationships can nevertheless be used to generate hypotheses about potentially relevant factors that could be investigated in future causal studies.
-
-The main limitations are:
-
-- the final sample is smaller than the full S&P 500 universe because only companies available in both original data sources could be merged;
-- the final modelling sample contains 378 companies;
-- the best test R² is moderate;
-- the analysis does not provide causal evidence and should therefore not be interpreted as a direct basis for policy recommendations.
-
-## LLM Application
-
-As an additional application, the output of the best-performing PyTorch model was connected to a Large Language Model API to generate a short, readable ESG risk report.
-
-The workflow is:
-
-`Company data → PyTorch prediction → LLM-generated report`
-
-The purpose of this step is not to improve the prediction itself, but to translate the model output into a more accessible narrative format.
-
-## Repository Structure
-
-```text
-esg-risk-regression/
-│
-├── README.md
-├── esg_risk_regression.ipynb
-├── esg_financials_merged_simfin_2023.csv
-└── esg_risk_regression_report.pdf
-```
-
-## Technologies
-
-- Python
-- pandas
-- NumPy
-- scikit-learn
-- PyTorch
-- SHAP
-- statsmodels
-- pyGAM
-- Matplotlib
-- Groq API
-- Jupyter Notebook
-  
-## Files
-
-- `esg_risk_prediction.ipynb` — main analysis and machine learning workflow
-- `esg_financials_merged_simfin_2023.csv` — merged ESG and financial dataset
-- `esg_risk_prediction_report.pdf` — project presentation
+**Tools:** Python · pandas · scikit-learn · PyTorch · SHAP · pyGAM · Groq API
