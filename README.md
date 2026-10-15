@@ -27,7 +27,6 @@ E, S and G sub-scores were removed because they are components of the target (da
 ## Limitations
 
 - Small sample, so model rankings are not robust; the PyTorch network is evaluated on a single validation split and seed, while the other models are tuned with cross-validation.
-- The controversy score comes from the same type of ESG data provider as the target and may partly feed into the rating methodology, so part of its predictive power may be mechanical.
 - Results are predictive associations, not causal effects.
 
 ## Repository
