@@ -20,9 +20,9 @@ E, S and G sub-scores were removed because they are components of the target (da
 ## Key results
 
 - The **PyTorch neural network** achieves the highest test R² (**0.47**, RMSE 4.92), with SVR (0.44) and GAM (0.43) close behind; polynomial regression severely overfits. With about 76 test companies, differences of a few points of R² should not be over-interpreted.
-- **Most relevant variables:** sector (energy firms show higher ESG risk, real estate and technology lower), **controversy score** and **company size** (total assets, employees), consistently across standardised coefficients and SHAP values.
+- **Most relevant variables:** sector (relative to the baseline sector, energy firms show higher ESG risk, though only borderline significant, while real estate and technology show markedly lower risk), **controversy score** and **company size** (total assets, employees), consistently across standardised coefficients and SHAP values.
 - The moderate R² suggests that quantitative variables capture relevant information but do not fully explain ESG risk.
-- **LLM application:** the model's prediction for a company is passed to an LLM (Llama 3.3 via Groq API) together with its data, to generate a readable ESG risk report. Example: Comcast, the first company in the test set, predicted 23.05 vs. actual 23.10; the average test error is about 4 points (MAE 3.97).
+- **LLM application:** the model's prediction for a company is passed to an LLM (GPT-OSS 120B via Groq API) together with its data, to generate a readable ESG risk report. Example: Comcast, the first company in the test set, predicted 23.05 vs. actual 23.10; the average test error is about 4 points (MAE 3.97).
 
 ## Limitations
 
